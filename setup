@@ -1,0 +1,29 @@
+#!/bin/bash -e
+
+# Install python, pip and virtualenv
+sudo apt-get install  python3-pip
+sudo apt-get install python3
+sudo pip install virtualenv
+
+# Set the base path to the current directory
+BASEDIR=`dirname $0`
+
+# Setup the virtual environment if it doesn't exist
+if [ ! -d "$BASEDIR/ve" ]; then
+    virtualenv -q --python=/usr/bin/python3.4 $BASEDIR/env --no-site-packages
+    echo "Virtualenv created."
+fi
+
+# Create the requirements.txt if it doesn't exist
+if [ ! -f "$BASEDIR/requirements.txt" ]; then
+   touch requirements.txt
+fi
+
+# Install the requirements file if the updated file doesn't exist or the requirements file
+# has a newer timestamp than the updated file
+if [ ! -f "$BASEDIR/ve/updated" -o $BASEDIR/requirements.txt -nt $BASEDIR/ve/updated ]; then
+   . env/bin/activate
+    pip install -r $BASEDIR/requirements.txt
+    touch $BASEDIR/env/updated
+    echo "Requirements installed."
+fi
