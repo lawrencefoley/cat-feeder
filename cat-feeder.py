@@ -2,9 +2,22 @@ from utils import feed
 import schedule
 from time import sleep
 import logging
+from gpiozero import PWMLED
 
+VERSION = "0.0.2"
+CAT_ART ="""
+    _                ___       _.--.
+    \`.|\..----...-'`   `-._.-'_.-'`
+    /  ' `         ,       __.--'
+    )/' _/     \   `-_,   /
+    `-'" `"\_  ,_.-;_.-\_ ',
+        _.-'_./   {_.'   ; /
+       {_.-``-'         {_/
+"""
 if __name__ == "__main__":
     logging.basicConfig(filename='cat-feeder.log', level=logging.INFO, format='%(asctime)s | %(module)s | %(message)s')
+    logging.info("Cat Feeder - " + VERSION)
+    logging.info(CAT_ART)
     logging.info("Starting up...")
 
     led = PWMLED(4)
