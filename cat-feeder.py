@@ -7,6 +7,9 @@ if __name__ == "__main__":
     logging.basicConfig(filename='cat-feeder.log', level=logging.INFO, format='%(asctime)s | %(module)s | %(message)s')
     logging.info("Starting up...")
 
+    led = PWMLED(4)
+    led.blink(on_time=1, off_time=1, fade_in_time=3, fade_out_time=3, n=None, background=True)
+
     # Morning
     schedule.every().day.at("09:00").do(feed, quarterCups=1)
 

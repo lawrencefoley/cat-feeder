@@ -1,13 +1,13 @@
-from gpiozero import OutputDevice, Buzzer, LED
+from gpiozero import OutputDevice, Buzzer, PWMLED
 from time import sleep
 import logging
 
 motor = OutputDevice(2)
 buzzer = Buzzer(3)
-led = LED(4)
+
 def feed(quarterCups):
     logging.info("Feeding " + str(quarterCups) + " quarter cups")
-    blink()
+    #blink()
     beep()
     try:
         motor.on()
@@ -23,7 +23,8 @@ def beep():
     buzzer.beep(0.2, 0.2, 3, background=False)
 
 def blink():
-    led.blink(n=3)
+    #led.blink(n=3)
+    pass
 
 if __name__ == "__main__":
     feed(1)
