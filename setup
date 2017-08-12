@@ -4,6 +4,7 @@
 sudo apt-get install  python3-pip
 sudo apt-get install python3
 sudo apt-get install python3-gpiozero
+sudo apt-get install nginx
 sudo pip install virtualenv
 # Set the base path to the current directory
 BASEDIR=`dirname $0`
