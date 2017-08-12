@@ -2,9 +2,13 @@ from utils import feed
 import schedule
 from time import sleep
 import logging
-from gpiozero import PWMLED
+from gpiozero import LED
 
-VERSION = "0.0.2"
+# Set this number to the number of quarter cups you want your pet fed for each meal
+# By default, I have two meals per day
+NUMBER_OF_QUARTER_CUPS_PER_FEEDING = 1
+
+VERSION = "0.0.3"
 CAT_ART ="""
     _                ___       _.--.
     \`.|\..----...-'`   `-._.-'_.-'`
@@ -14,23 +18,25 @@ CAT_ART ="""
         _.-'_./   {_.'   ; /
        {_.-``-'         {_/
 """
+
 if __name__ == "__main__":
+    # Setup logging
     logging.basicConfig(filename='cat-feeder.log', level=logging.INFO, format='%(asctime)s | %(module)s | %(message)s')
     logging.info("Cat Feeder - " + VERSION)
     logging.info(CAT_ART)
     logging.info("Starting up...")
 
-    led = PWMLED(4)
-    led.blink(on_time=0, off_time=5, fade_in_time=0.25, fade_out_time=0.25, n=None, background=True)
+    # Blinking LED to indicate normal operation
+    led = LED(4)
+    led.blink(on_time=0.05, off_time=3, n=None, background=True)
 
-    # Morning
-    schedule.every().day.at("09:00").do(feed, quarterCups=1)
+    # Morning feeding
+    schedule.every().day.at("08:00").do(feed, quarterCups=NUMBER_OF_QUARTER_CUPS_PER_FEEDING)
 
-    # Evening
-    schedule.every().day.at("22:45").do(feed, quarterCups=1)
-
-    #schedule.every().wednesday.at("13:15").do(job)
-
+    # Evening feeding
+    schedule.every().day.at("20:00").do(feed, quarterCups=NUMBER_OF_QUARTER_CUPS_PER_FEEDING)
+    
+    # Run scheduled feedings
     while True:
         schedule.run_pending()
         sleep(1)

@@ -1,0 +1,5 @@
+install fswebcam
+
+add the video group to the user that is in the supervisord conf file
+
+
