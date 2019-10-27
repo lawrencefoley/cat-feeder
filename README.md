@@ -10,10 +10,6 @@ cd cat-feeder
 chmod +x setup
 sudo ./setup
 ```
-Add your user to the video group to use the webcam
-```
-usermod -a -G video <username-here>
-```
 Copy the supervisor config file
 Note: you will need to modify this conf file based on your username, etc
 ```
